@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Principal Reports</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h2>Attendance Reports</h2>
+      <p class="top-sub">Class-wise and date-wise attendance monitoring</p>
+    </div>
+    <div class="top-actions">
+      <a class="btn secondary" href="/principal">Back to Dashboard</a>
+      <form method="post" action="/logout"><button type="submit">Logout</button></form>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="card">
+      <form method="get" action="/principal/reports" class="filter-row">
+        <div>
+          <label>Class</label>
+          <select name="class_id">
+            <option value="">All classes</option>
+            <% classes.forEach(c => { %>
+              <option value="<%= c.id %>" <%= String(classId) === String(c.id) ? "selected" : "" %>><%= c.standard_name %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div>
+          <label>Month</label>
+          <input type="month" name="month" value="<%= month %>" />
+        </div>
+        <div>
+          <label>&nbsp;</label>
+          <button type="submit">Apply Filters</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Class Summary</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Class</th><th>Present</th><th>Absent</th><th>Total</th><th>Rate</th></tr></thead>
+            <tbody>
+            <% if (!summary.length) { %>
+              <tr><td colspan="5">No attendance data.</td></tr>
+            <% } %>
+            <% summary.forEach(s => { const rate = s.total ? ((s.present_count * 100) / s.total).toFixed(2) : "0.00"; %>
+              <tr>
+                <td><%= s.standard_name %></td>
+                <td><%= s.present_count %></td>
+                <td><%= s.absent_count %></td>
+                <td><%= s.total %></td>
+                <td><%= rate %>%</td>
+              </tr>
+            <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Detailed Attendance</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Date</th><th>Class</th><th>Roll</th><th>Student</th><th>Status</th></tr></thead>
+            <tbody>
+            <% if (!rows.length) { %>
+              <tr><td colspan="5">No records found.</td></tr>
+            <% } %>
+            <% rows.forEach(r => { %>
+              <tr>
+                <td><%= r.date %></td>
+                <td><%= r.standard_name %></td>
+                <td><%= r.roll_no %></td>
+                <td><%= r.student_name %></td>
+                <td><span class="<%= r.status === 'present' ? 'pill present' : 'pill absent' %>"><%= r.status %></span></td>
+              </tr>
+            <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

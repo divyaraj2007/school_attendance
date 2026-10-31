@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# SQLite local database & WAL files
+*.db
+*.db-shm
+*.db-wal
+
+# Operating System & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+*.log
+*.tmp
+
+# Uploads cache
+assets/uploads/temp/

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School Attendance - Sign Up</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body class="bg">
+  <div class="auth-shell">
+    <section class="auth-panel card">
+      <p class="eyebrow">Student Registration</p>
+      <h1>Create Account</h1>
+      <p class="sub">Sign up and track your attendance online</p>
+      <div class="auth-switch">
+        <a class="switch-btn" href="/signin">Login</a>
+        <a class="switch-btn active" href="/signup">Sign Up</a>
+      </div>
+
+      <% if (error) { %>
+        <div class="alert error"><%= error %></div>
+      <% } %>
+      <% if (success) { %>
+        <div class="alert success"><%= success %></div>
+      <% } %>
+
+      <form method="post" action="/signup" class="form-grid">
+        <label>Full Name</label>
+        <input type="text" name="name" required />
+
+        <label>Email</label>
+        <input type="email" name="email" autocomplete="email" required />
+
+        <label>Password</label>
+        <input type="password" name="password" minlength="4" required />
+
+        <label>Class</label>
+        <select name="class_id" required <%= classes.length ? "" : "disabled" %>>
+          <option value="">Select class</option>
+          <% classes.forEach(cls => { %>
+            <option value="<%= cls.id %>"><%= cls.standard_name %></option>
+          <% }) %>
+        </select>
+
+        <label>Roll Number</label>
+        <input type="number" name="roll_no" min="1" required />
+
+        <% if (!classes.length) { %>
+          <small class="muted">No classes available yet. Ask principal to create class first.</small>
+        <% } %>
+
+        <button type="submit" <%= classes.length ? "" : "disabled" %>>Create Account</button>
+      </form>
+
+      <p class="hint">Already have an account? <a href="/signin">Sign in</a></p>
+    </section>
+
+    <section class="auth-side card">
+      <h3>Important</h3>
+      <ul class="feature-list">
+        <li>Choose correct class and roll number.</li>
+        <li>Use unique email for your account.</li>
+        <li>If roll is already taken, contact principal.</li>
+      </ul>
+      <a class="btn secondary" href="/">Back to Home</a>
+    </section>
+  </div>
+</body>
+</html>

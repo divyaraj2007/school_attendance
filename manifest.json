@@ -1,0 +1,37 @@
+{
+  "name": "Smart School Attendance Management System",
+  "short_name": "SmartAtt",
+  "description": "Enterprise-grade Attendance & Timetable Management System for Schools and Colleges",
+  "start_url": "index.php",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f8fafc",
+  "theme_color": "#1e40af",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "assets/img/logo.svg",
+      "sizes": "48x48 72x72 96x96 128x128 192x192 256x256 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Student Portal",
+      "url": "student/index.php",
+      "description": "View student attendance percentage & calendar"
+    },
+    {
+      "name": "Teacher Portal",
+      "url": "teacher/index.php",
+      "description": "Mark daily & subject attendance"
+    },
+    {
+      "name": "Mobile App View",
+      "url": "mobile/index.php",
+      "description": "Dedicated Touch-Optimized Mobile View"
+    }
+  ]
+}

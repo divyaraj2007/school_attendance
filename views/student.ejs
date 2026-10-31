@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h2>Student Dashboard</h2>
+      <p class="top-sub">View your attendance only</p>
+    </div>
+    <form method="post" action="/logout"><button type="submit">Logout</button></form>
+  </header>
+
+  <main class="container">
+    <% if (error) { %><div class="alert error"><%= error %></div><% } %>
+    <% if (success) { %><div class="alert success"><%= success %></div><% } %>
+
+    <section class="card">
+      <h3><%= student.name %> - <%= student.standard_name %> (Roll <%= student.roll_no %>)</h3>
+      <div class="stats-row">
+        <div class="stat"><h3><%= summary.present_count %></h3><p>Present</p></div>
+        <div class="stat"><h3><%= summary.absent_count %></h3><p>Absent</p></div>
+        <div class="stat"><h3><%= summary.total %></h3><p>Total Days</p></div>
+        <div class="stat"><h3><%= percentage %>%</h3><p>Attendance %</p></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Attendance History</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Date</th><th>Status</th></tr></thead>
+          <tbody>
+          <% if (!history.length) { %>
+            <tr><td colspan="2">No attendance records yet.</td></tr>
+          <% } %>
+          <% history.forEach(h => { %>
+            <tr>
+              <td><%= h.date %></td>
+              <td><span class="<%= h.status === 'present' ? 'pill present' : 'pill absent' %>"><%= h.status %></span></td>
+            </tr>
+          <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School Attendance - Sign In</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body class="bg">
+  <div class="auth-shell">
+    <section class="auth-panel card">
+      <p class="eyebrow">School Attendance</p>
+      <h1>Sign In</h1>
+      <p class="sub">Access principal, teacher, or student dashboard</p>
+      <div class="auth-switch">
+        <a class="switch-btn active" href="/signin">Login</a>
+        <a class="switch-btn" href="/signup">Sign Up</a>
+      </div>
+
+      <% if (error) { %>
+        <div class="alert error"><%= error %></div>
+      <% } %>
+      <% if (success) { %>
+        <div class="alert success"><%= success %></div>
+      <% } %>
+
+      <form method="post" action="/login" class="form-grid">
+        <label>Role (Optional)</label>
+        <select name="role">
+          <option value="">Auto Detect</option>
+          <option value="principal">Principal</option>
+          <option value="teacher">Teacher</option>
+          <option value="student">Student</option>
+        </select>
+
+        <label>Email</label>
+        <input type="email" name="email" placeholder="email@example.com" autocomplete="email" required />
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="********" autocomplete="current-password" required />
+
+        <button type="submit">Sign In</button>
+      </form>
+
+      <p class="hint">
+        New user? <a href="/signup">Create account</a>
+      </p>
+      <p class="hint">
+        Default principal: <code>principal@school.com</code> / <code>admin123</code>
+      </p>
+      <p class="hint">
+        Demo teacher: <code>demo.teacher@school.com</code> / <code>123456</code>
+      </p>
+      <p class="hint">
+        Demo student: <code>demo.student@school.com</code> / <code>student123</code>
+      </p>
+    </section>
+
+    <section class="auth-side card">
+      <h3>What you can do</h3>
+      <ul class="feature-list">
+        <li>Principal: manage classes, teachers, and students.</li>
+        <li>Teacher: mark daily attendance quickly.</li>
+        <li>Student: track personal attendance summary.</li>
+      </ul>
+      <a class="btn secondary" href="/">Back to Home</a>
+    </section>
+  </div>
+</body>
+</html>

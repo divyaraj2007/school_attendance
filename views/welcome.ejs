@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School Attendance System</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body class="welcome-bg">
+  <main class="welcome-shell">
+    <section class="welcome-hero card">
+      <p class="eyebrow">Attendance Platform</p>
+      <h1>School Attendance System</h1>
+      <p class="sub">
+        Modern attendance management for principal, teacher, and student roles.
+      </p>
+
+      <% if (error) { %><div class="alert error"><%= error %></div><% } %>
+      <% if (success) { %><div class="alert success"><%= success %></div><% } %>
+
+      <div class="hero-actions">
+        <a class="btn primary-link" href="/signin">Sign In</a>
+        <a class="btn secondary" href="/signup">Student Sign Up</a>
+      </div>
+      <p class="hint">Principal default: <code>principal@school.com</code> / <code>admin123</code></p>
+    </section>
+
+    <section class="welcome-grid">
+      <article class="card mini-card">
+        <h3>Principal</h3>
+        <p>Create classes, add teachers and students, view full attendance reports.</p>
+      </article>
+      <article class="card mini-card">
+        <h3>Teacher</h3>
+        <p>Mark and update attendance for assigned class with quick daily workflow.</p>
+      </article>
+      <article class="card mini-card">
+        <h3>Student</h3>
+        <p>Track attendance history and percentage with transparent personal dashboard.</p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

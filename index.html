@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School Attendance Launcher</title>
+  <style>
+    :root {
+      --ink: #0f2c4e;
+      --muted: #4f6783;
+      --primary: #0c8f84;
+      --primary-strong: #0a7067;
+      --panel: #ffffff;
+      --line: #d9e4f3;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 20%, #ccfff3 0%, transparent 30%),
+        radial-gradient(circle at 82% 16%, #ffe5bf 0%, transparent 36%),
+        linear-gradient(180deg, #eef4ff 0%, #e8efff 100%);
+      display: grid;
+      place-items: center;
+      padding: 18px;
+    }
+    .shell {
+      width: min(920px, 96%);
+      display: grid;
+      gap: 14px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 12px 26px rgba(15, 44, 78, 0.1);
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 4vw, 44px);
+      letter-spacing: -0.03em;
+    }
+    p { margin: 0 0 10px; }
+    .muted { color: var(--muted); }
+    .row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight: 700;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--primary-strong); }
+    .btn-secondary {
+      background: #e8f0ff;
+      color: #15395f;
+    }
+    .status {
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      border: 1px solid transparent;
+    }
+    .ok {
+      background: #e9fff2;
+      color: #16633b;
+      border-color: #bceccb;
+    }
+    .bad {
+      background: #fff2f3;
+      color: #8c2733;
+      border-color: #f6c5ca;
+    }
+    code {
+      background: #f0f5ff;
+      border-radius: 6px;
+      padding: 2px 6px;
+    }
+    @media (max-width: 640px) {
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="card">
+      <h1>School Attendance System</h1>
+      <p class="muted">This launcher checks backend status and sends you to the real web app.</p>
+      <div id="status" class="status">Checking server at <code>http://localhost:3000</code>...</div>
+      <div class="row">
+        <a class="btn btn-primary" href="http://localhost:3000/signin" target="_blank" rel="noreferrer">Sign In</a>
+        <a class="btn btn-secondary" href="http://localhost:3000/signup" target="_blank" rel="noreferrer">Student Sign Up</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <p><strong>Start server command:</strong> <code>npm.cmd start</code></p>
+      <p class="muted">If browser still shows old content, refresh with <code>Ctrl + F5</code>.</p>
+    </section>
+  </main>
+
+  <script>
+    (async function checkBackend() {
+      const el = document.getElementById("status");
+      try {
+        const res = await fetch("http://localhost:3000/health", { method: "GET" });
+        if (res.ok) {
+          el.className = "status ok";
+          el.textContent = "Backend is running. You can sign in now.";
+          return;
+        }
+      } catch (e) {}
+      el.className = "status bad";
+      el.innerHTML = "Backend not running. Start it with <code>npm.cmd start</code>.";
+    })();
+  </script>
+</body>
+</html>

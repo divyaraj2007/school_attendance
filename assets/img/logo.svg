@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="gradShield" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+    <linearGradient id="gradGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+  </defs>
+  <!-- Shield Background -->
+  <path d="M 60 10 C 85 10 105 18 105 38 C 105 75 80 102 60 112 C 40 102 15 75 15 38 C 15 18 35 10 60 10 Z" fill="url(#gradShield)" stroke="#ffffff" stroke-width="3" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.2))" />
+  <!-- Inner Shield Trim -->
+  <path d="M 60 16 C 80 16 97 23 97 40 C 97 70 76 94 60 104 C 44 94 23 70 23 40 C 23 23 40 16 60 16 Z" fill="none" stroke="url(#gradGold)" stroke-width="2" stroke-dasharray="4 2" />
+  <!-- Graduation Cap -->
+  <polygon points="60,30 84,40 60,50 36,40" fill="url(#gradGold)" />
+  <path d="M 45 44 L 45 56 C 45 61 75 61 75 56 L 75 44" fill="none" stroke="url(#gradGold)" stroke-width="2" />
+  <path d="M 80 42 L 85 58 L 81 59 L 80 42" fill="#f59e0b" />
+  <!-- Open Book -->
+  <path d="M 60 62 C 52 57 40 58 35 60 L 35 84 C 41 82 52 81 60 86 C 68 81 79 82 85 84 L 85 60 C 80 58 68 57 60 62 Z" fill="#ffffff" />
+  <path d="M 60 62 L 60 86" stroke="#1e3a8a" stroke-width="2" />
+  <!-- Star -->
+  <polygon points="60,92 62,96 66,96 63,99 64,103 60,100 56,103 57,99 54,96 58,96" fill="url(#gradGold)" />
+</svg>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Principal Dashboard</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h2>Principal Dashboard</h2>
+      <p class="top-sub">Manage classes, staff, students, and attendance data</p>
+    </div>
+    <div class="top-actions">
+      <a class="btn secondary" href="/principal/reports">Attendance Reports</a>
+      <form method="post" action="/logout"><button type="submit">Logout</button></form>
+    </div>
+  </header>
+
+  <main class="container">
+    <% if (error) { %><div class="alert error"><%= error %></div><% } %>
+    <% if (success) { %><div class="alert success"><%= success %></div><% } %>
+
+    <section class="stats-row">
+      <div class="stat"><h3><%= stats.classCount %></h3><p>Classes</p></div>
+      <div class="stat"><h3><%= stats.teacherCount %></h3><p>Teachers</p></div>
+      <div class="stat"><h3><%= stats.studentCount %></h3><p>Students</p></div>
+    </section>
+
+    <section class="grid-3">
+      <div class="card">
+        <h3>Add Class</h3>
+        <form method="post" action="/principal/classes/add" class="form-grid">
+          <label>Standard Name</label>
+          <input name="standard_name" placeholder="Standard 8" required />
+          <button type="submit">Add Class</button>
+        </form>
+        <div class="table-wrap compact-table">
+          <table>
+            <thead><tr><th>Class</th><th>Action</th></tr></thead>
+            <tbody>
+            <% if (!classes.length) { %>
+              <tr><td colspan="2">No classes created.</td></tr>
+            <% } %>
+            <% classes.forEach(cls => { %>
+              <tr>
+                <td><%= cls.standard_name %></td>
+                <td>
+                  <form method="post" action="/principal/classes/<%= cls.id %>/delete" onsubmit="return confirm('Delete this class and all linked records?');">
+                    <button class="danger" type="submit">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Add Teacher</h3>
+        <form method="post" action="/principal/teachers/add" class="form-grid">
+          <label>Name</label>
+          <input name="name" required />
+          <label>Subject</label>
+          <input name="subject" required />
+          <label>Email</label>
+          <input name="email" type="email" required />
+          <small class="muted">Teacher default password is fixed: <code>123456</code></small>
+          <label>Assigned Class</label>
+          <select name="class_id" required <%= classes.length ? "" : "disabled" %>>
+            <option value="">Select class</option>
+            <% classes.forEach(cls => { %>
+              <option value="<%= cls.id %>"><%= cls.standard_name %></option>
+            <% }) %>
+          </select>
+          <% if (!classes.length) { %>
+            <small class="muted">Create at least one class before adding teachers.</small>
+          <% } %>
+          <button type="submit">Add Teacher</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h3>Add Student</h3>
+        <form method="post" action="/principal/students/add" class="form-grid">
+          <label>Name</label>
+          <input name="name" required />
+          <label>Roll No</label>
+          <input name="roll_no" type="number" min="1" required />
+          <label>Standard</label>
+          <select name="class_id" required <%= classes.length ? "" : "disabled" %>>
+            <option value="">Select class</option>
+            <% classes.forEach(cls => { %>
+              <option value="<%= cls.id %>"><%= cls.standard_name %></option>
+            <% }) %>
+          </select>
+          <% if (!classes.length) { %>
+            <small class="muted">Create at least one class before adding students.</small>
+          <% } %>
+          <label>Email</label>
+          <input name="email" type="email" required />
+          <label>Password</label>
+          <input name="password" type="password" required />
+          <button type="submit">Add Student</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <div class="card">
+        <h3>Teachers</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Name</th><th>Email</th><th>Subject</th><th>Class</th><th>Action</th></tr></thead>
+            <tbody>
+            <% if (!teachers.length) { %>
+              <tr><td colspan="5">No teachers added.</td></tr>
+            <% } %>
+            <% teachers.forEach(t => { %>
+              <tr>
+                <td><%= t.name %></td>
+                <td><%= t.email %></td>
+                <td><%= t.subject %></td>
+                <td><%= t.standard_name %></td>
+                <td>
+                  <form method="post" action="/principal/teachers/<%= t.id %>/delete" onsubmit="return confirm('Delete this teacher?');">
+                    <button class="danger" type="submit">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Students</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Roll</th><th>Name</th><th>Email</th><th>Class</th><th>Action</th></tr></thead>
+            <tbody>
+            <% if (!students.length) { %>
+              <tr><td colspan="5">No students added.</td></tr>
+            <% } %>
+            <% students.forEach(s => { %>
+              <tr>
+                <td><%= s.roll_no %></td>
+                <td><%= s.name %></td>
+                <td><%= s.email %></td>
+                <td><%= s.standard_name %></td>
+                <td>
+                  <form method="post" action="/principal/students/<%= s.id %>/delete" onsubmit="return confirm('Delete this student?');">
+                    <button class="danger" type="submit">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
